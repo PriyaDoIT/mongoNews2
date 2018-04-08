@@ -97,7 +97,7 @@ module.exports = function (app) {
         // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
         db.Article.findOne({ _id: req.params.id })
             // ..and populate all of the notes associated with it
-            .populate("notes")
+            .populate("note")
             .then(function (dbArticle) {
                 // If we were able to successfully find an Article with the given id, send it back to the client
                 res.json(dbArticle);
@@ -128,26 +128,26 @@ module.exports = function (app) {
             });
     });
 
-    
 
 
 
-    // //Route for deleting an Article's associated Note
-    // app.delete("/saved/:id"), function (req, res) {
-    //     // Create a new note and pass the req.body to the entry
-    //     db.Note.findOneAndRemove({ _id: req.params.id })
-    //         .then(function (dbNote) {
-    //             return db.Article.findByIdAndUpdate({ notes: req.params.id }, { $pull: { note: dbNote._id } }, { new: true });
-    //         })
-    //         .then(function (dbArticle) {
-    //             // If we were able to successfully update an Article, send it back to the client
-    //             res.json(dbArticle);
-    //         })
-    //         .catch(function (err) {
-    //             // If an error occurred, send it to the client
-    //             res.json(err);
-    //         });
-    // };
+
+    //Route for deleting an Article's associated Note
+    app.delete("/articles/:id/notes"), function (req, res) {
+        // Create a new note and pass the req.body to the entry
+        db.Note.findOneAndRemove({ _id: req.params.id })
+            .then(function (dbNote) {
+                return db.Article.findByIdAndUpdate({ notes: req.params.id }, { $pull: { note: dbNote._id } }, { new: true });
+            })
+            .then(function (dbArticle) {
+                // If we were able to successfully update an Article, send it back to the client
+                res.json(dbArticle);
+            })
+            .catch(function (err) {
+                // If an error occurred, send it to the client
+                res.json(err);
+            });
+    };
 
    
 

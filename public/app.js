@@ -26,6 +26,9 @@ $(document).ready(function () {
         })
     });
 
+
+    
+
     //delete from saved
     $(".delete").on("click", function () {
         var id = $(this).attr("data-id");
@@ -46,7 +49,7 @@ $(document).ready(function () {
         method: "POST",
         url: "/articles/"+id+"/notes",
         data: {
-            body: $(".notebody").val()
+            summary: $(".notebody").val()
         }
     }).done(function (data) {
         $(".notebody").val("");
@@ -56,23 +59,20 @@ $(document).ready(function () {
 });
 
 
+
+
 //View saved notes
-$(".note").on("click", function (event) {
-    var id = $(".saveNote").attr("data-id");
-    console.log(id)
-    $.ajax({
-        method: "GET",
-        url: "/articles/"+id+"/notes",
-    }).then(function() {
-    })
-   
-        
-        // window.location = "/saved"
-    })
-
-
-
-
+// $(".note").on("click", function (event) {
+//     event.preventDefault()
+//     var id = $(".saveNote").attr("data-id");
+//     $.ajax({
+//         method: "GET",
+//         url: "/articles/"+id+"/notes",
+//         data: 
+//     }).then(function() {
+//         console.log(this);
+//     })
+// });
 
 
     //highlight active page on nav

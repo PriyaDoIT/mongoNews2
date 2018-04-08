@@ -61,12 +61,12 @@
                 <h4 class="modal-title" id="myModalLabel">Note for Article: {{this.title}}</h4>
             </div>
             <div class="modal-body">
-                {{#if this.notes}} {{#each this.notes}}
+                {{#if this.note}} {{#each this.note}}
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <p class="previousNotes"> {{this.body}}</p>
-                        <button type="button" class="btn btn-danger noteX" data-note-id={{this._id}} data-article-id={{this.article}}>X</button>
-                    </div>
+                        <p>{{this.note.summary}}</p>
+                        <button type="button" class="btn btn-danger noteX">X</button>
+                    </div> 
                 </div>
                 {{/each}} {{else}}
                 <div class="panel panel-default">

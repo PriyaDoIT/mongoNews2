@@ -19,18 +19,7 @@ app.get("/saved", function(req,res){
     };
     console.log(hbsObject);
     res.render("saved", hbsObject);
-  });
-});
-
-
-//render notes.handlebars
-app.get("/saved", function(req,res){
-  db.Article.find({note}, function(error, data){
-    var hbsObject = {
-      article: note
-    };
-    console.log(hbsObject);
-    res.render("notes", hbsObject);
+    
   });
 });
 
