@@ -1,0 +1,87 @@
+<div class="jumbotron">
+    <h1 class="display-5">Saved Articles</h1>
+    <p class="lead">Your Saved Articles</p>
+</div>
+<div class= "container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            {{#if article}} {{#each article}}
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="btn-toolbar">
+                    <a href={{this.link}} target="_blank" class="article-link">
+                        <h4>{{this.title}}</h4>
+                    </a>
+                    
+                    <button type="button" class="btn btn-danger delete pull-right" data-id={{this._id}}>Delete from Saved</button>
+                    <button type="button" class="btn btn-success note pull-right" data-toggle="modal" data-target="#myModal" data-id={{this._id}}>
+                        Add Note
+                    </button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <p> {{this.summary}}</p>
+                </div>
+            </div>
+            {{/each}} {{else}}
+            <div class="panel panel-default">
+                <div class="panel-body empty">
+                    <h4>Uh Oh. Looks like we don't have any saved articles.</h4>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading text-center">
+                    <h3>Would you like to browse available articles?</h3>
+                </div>
+                <div class="panel-body text-center">
+                    <a href="/">
+                        <h3>Browse Articles</h3>
+                    </a>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+<!--Clicked Notes Modal-->
+{{!-- {{#each article}}
+    {{> notes }}
+{{/each}} --}}
+
+<!-- Modal -->
+{{#each article}}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close saveNote" data-dismiss="modal" aria-label="Close" data-id={{this._id}}>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Note for Article: {{this.title}}</h4>
+            </div>
+            <div class="modal-body">
+                {{#if this.notes}} {{#each this.notes}}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="previousNotes"> {{this.body}}</p>
+                        <button type="button" class="btn btn-danger noteX" data-note-id={{this._id}} data-article-id={{this.article}}>X</button>
+                    </div>
+                </div>
+                {{/each}} {{else}}
+                <div class="panel panel-default">
+                    <div class="panel-body"> No notes for this article yet.
+                    </div>
+                </div>
+                {{/if}}
+                <div class="form-group">
+                    <textarea class="form-control notebody" rows="5" placeholder="New Note"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success savenote" data-note-id={{this._id}} data-article-id={{this.article}}>Save Note</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
