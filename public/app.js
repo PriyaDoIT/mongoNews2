@@ -40,16 +40,18 @@ $(document).ready(function () {
 
 //create a note and save to article
  $(".savenote").on("click", function (event) {
-    var id = $(".saveNote").attr("data-id");
+    var id = $(this).attr("data-id");
     console.log(id)
+    console.log($(`#notebody${id}`).val())
     $.ajax({
         method: "POST",
         url: "/articles/"+id+"/notes",
         data: {
-            body: $(".notebody").val()
+            body: $(`#notebody${id}`).val()
         }
     }).done(function (data) {
-        $(".notebody").val("");
+        console.log(data)
+        $(`#notebody${id}`).val("");
 
         // window.location = "/saved"
     })
@@ -63,7 +65,8 @@ $(".note").on("click", function (event) {
     $.ajax({
         method: "GET",
         url: "/articles/"+id+"/notes",
-    }).then(function() {
+    }).then(function(data) {
+        console.log(data)
     })
    
         

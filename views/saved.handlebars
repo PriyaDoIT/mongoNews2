@@ -14,7 +14,7 @@
                     </a>
                     
                     <button type="button" class="btn btn-danger delete pull-right" data-id={{this._id}}>Delete from Saved</button>
-                    <button type="button" class="btn btn-success note pull-right" data-toggle="modal" data-target="#myModal" data-id={{this._id}}>
+                    <button type="button" class="btn btn-success note pull-right" data-toggle="modal" data-target=#{{this._id}} data-id={{this._id}}>
                         Add Note
                     </button>
                     </div>
@@ -51,35 +51,36 @@
 
 <!-- Modal -->
 {{#each article}}
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id={{_id}} tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close saveNote" data-dismiss="modal" aria-label="Close" data-id={{this._id}}>
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Note for Article: {{this.title}}</h4>
+                <h4 class="modal-title" id="myModalLabel">Note for Article: {{title}}</h4>
             </div>
             <div class="modal-body">
-                {{#if this.notes}} {{#each this.notes}}
+            {{#each note}}
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <p class="previousNotes"> {{this.body}}</p>
+                        <p class="previousNotes">{{body}}</p>
                         <button type="button" class="btn btn-danger noteX" data-note-id={{this._id}} data-article-id={{this.article}}>X</button>
                     </div>
                 </div>
-                {{/each}} {{else}}
+            {{/each}}
+                {{#unless note}}
                 <div class="panel panel-default">
                     <div class="panel-body"> No notes for this article yet.
                     </div>
                 </div>
-                {{/if}}
+                {{/unless}}
                 <div class="form-group">
-                    <textarea class="form-control notebody" rows="5" placeholder="New Note"></textarea>
+                    <textarea id="notebody{{this._id}}" class="form-control " rows="5" placeholder="New Note"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success savenote" data-note-id={{this._id}} data-article-id={{this.article}}>Save Note</button>
+                <button type="button" class="btn btn-success savenote" data-id={{this._id}} data-article-id={{this.article}}>Save Note</button>
             </div>
         </div>
     </div>
